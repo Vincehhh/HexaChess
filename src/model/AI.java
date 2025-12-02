@@ -14,30 +14,22 @@ public class AI {
 		if (depth == 0)
 			return -evaluate(board);
 		List<Move> moves = board.listMoves(!maximizingPlayer);
-		if (maximizingPlayer) {
-			int maxEval = Integer.MIN_VALUE;
-			for (Move move : moves) {
-				Board clone = new Board(board);
-				clone.movePiece(move.from, move.to);
-				int eval = minimax(clone, depth - 1, alpha, beta, false);
-				maxEval = Math.max(maxEval, eval);
-				alpha = Math.max(alpha, eval);
-				if (beta <= alpha)
-					break;
-			}
-			return maxEval;
-		}
-		int minEval = Integer.MAX_VALUE;
+		int bestEval = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 		for (Move move : moves) {
 			Board clone = new Board(board);
 			clone.movePiece(move.from, move.to);
-			int eval = minimax(clone, depth - 1, alpha, beta, true);
-			minEval = Math.min(minEval, eval);
-			beta = Math.min(beta, eval);
+			int eval = minimax(clone, depth - 1, alpha, beta, !maximizingPlayer);
+			if (maximizingPlayer) {
+				bestEval = Math.max(bestEval, eval);
+				alpha = Math.max(alpha, eval);
+			} else {
+				bestEval = Math.min(bestEval, eval);
+				beta = Math.min(beta, eval);
+			}
 			if (beta <= alpha)
 				break;
 		}
-		return minEval;
+		return bestEval;
 	}
 	public Move getBestMove(Board board) {
 		Move bestMove = null;
