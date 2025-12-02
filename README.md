@@ -11,6 +11,8 @@
 [![Release](https://img.shields.io/github/release/Inc44/HexaChess.svg)](https://github.com/Inc44/HexaChess/releases)
 [![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/Inc44)
 
+![HexaChess](HexaChess.png)
+
 ## 🤝 Contribution
 
 Contributions, suggestions, and new ideas are heartily welcomed. If you're considering significant modifications, please initiate an issue for discussion before submitting a pull request.
