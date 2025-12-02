@@ -28,8 +28,8 @@ class HexGeometry {
 		double height = SQRT3 * radius;
 		double quarterWidth = width * 3 / 4;
 		double halfHeight = height / 2;
-		int dx = (int) (quarterWidth * q);
-		int dy = (int) (halfHeight * q + height * r);
+		int dx = (int) (quarterWidth * (q - r));
+		int dy = (int) (halfHeight * (q + r));
 		return new Point(cx + dx, cy + dy);
 	}
 	private AxialCoordinate hexRound(double q, double r) {
@@ -53,8 +53,8 @@ class HexGeometry {
 		double height = SQRT3 * radius;
 		double quarterWidth = width * 3 / 4;
 		double halfHeight = height / 2;
-		double q = dx / quarterWidth;
-		double r = (dy - halfHeight * q) / height;
+		double q = (dy / halfHeight + dx / quarterWidth) / 2;
+		double r = (dy / halfHeight - dx / quarterWidth) / 2;
 		return hexRound(q, r);
 	}
 	Path2D createHexPath(Point center) {

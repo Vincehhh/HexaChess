@@ -6,23 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 public class Board {
-	private int[][] rookDirections = {{1, 0}, {1, -1}, {0, -1}, {-1, 0}, {-1, 1}, {0, 1}};
-	private int[][] bishopDirections = {{1, -2}, {2, -1}, {1, 1}, {-1, 2}, {-2, 1}, {-1, -1}};
-	private int[][] knightOffsets = {{1, -3}, {2, -3}, {3, -2}, {3, -1}, {2, 1}, {1, 2}, {-1, 3},
-		{-2, 3}, {-3, 2}, {-3, 1}, {-2, -1}, {-1, -2}};
-	private int[][] whitePawnCaptures = {{-1, 0}, {1, -1}};
-	private int[][] blackPawnCaptures = {{1, 0}, {-1, 1}};
+	private int[][] rookDirections = {{-1, -1}, {0, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 0}};
+	private int[][] bishopDirections = {{-1, -2}, {1, -1}, {2, 1}, {1, 2}, {-1, 1}, {-2, -1}};
+	private int[][] knightOffsets = {
+		{-2, -3}, {-1, -3}, {3, 1}, {3, 2}, {2, 3}, {1, 3}, {-3, -1}, {-3, -2}};
+	private int[][] whitePawnCaptures = {{0, -1}, {-1, 0}};
+	private int[][] blackPawnCaptures = {{0, 1}, {1, 0}};
 	Map<AxialCoordinate, Piece> pieces = new HashMap<>();
 	public boolean isWhiteTurn = true;
 	private AxialCoordinate enPassant;
 	public Board() {
-		int[][] kings = {{1, 4}};
-		int[][] queens = {{-1, 5}};
-		int[][] rooks = {{-3, 5}, {3, 2}};
-		int[][] bishops = {{0, 5}, {0, 4}, {0, 3}};
-		int[][] knights = {{-2, 5}, {2, 3}};
-		int[][] pawns = {
-			{-4, 5}, {-3, 4}, {-2, 3}, {-1, 2}, {0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}};
+		int[][] kings = {{5, 4}};
+		int[][] queens = {{4, 5}};
+		int[][] rooks = {{2, 5}, {5, 2}};
+		int[][] bishops = {{3, 3}, {4, 4}, {5, 5}};
+		int[][] knights = {{3, 5}, {5, 3}};
+		int[][] pawns = {{1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {2, 1}, {3, 1}, {4, 1}, {5, 1}};
 		placeSymmetricPieces(kings, PieceType.KING, PieceType.QUEEN);
 		placeSymmetricPieces(queens, PieceType.QUEEN, PieceType.KING);
 		placeSymmetricPieces(rooks, PieceType.ROOK, PieceType.ROOK);
@@ -40,15 +39,19 @@ public class Board {
 		return pieces.get(coord);
 	}
 	private boolean isPromotionCell(AxialCoordinate pos, boolean isWhite) {
-		return !pos.add(0, isWhite ? -1 : 1).isValid();
+		int direction = isWhite ? -1 : 1;
+		return !pos.add(direction, direction).isValid();
 	}
 	public void movePiece(AxialCoordinate from, AxialCoordinate to) {
 		Piece p = pieces.remove(from);
 		if (p.type == PieceType.PAWN) {
-			if (to.equals(enPassant))
-				pieces.remove(new AxialCoordinate(to.q, p.isWhite ? to.r + 1 : to.r - 1));
+			if (to.equals(enPassant)) {
+				int direction = p.isWhite ? 1 : -1;
+				pieces.remove(new AxialCoordinate(to.q + direction, to.r + direction));
+			}
 			int dr = to.r - from.r;
-			enPassant = Math.abs(dr) == 2 ? new AxialCoordinate(from.q, from.r + dr / 2) : null;
+			enPassant =
+				Math.abs(dr) == 2 ? new AxialCoordinate(from.q + dr / 2, from.r + dr / 2) : null;
 			if (isPromotionCell(to, p.isWhite))
 				p = new Piece(PieceType.QUEEN, p.isWhite);
 		} else {
@@ -84,16 +87,16 @@ public class Board {
 	private boolean isPawnStartCell(AxialCoordinate pos, boolean isWhite) {
 		int q = pos.q, r = pos.r;
 		if (isWhite)
-			return q <= 0 ? r == 1 - q : r == 1;
-		return q >= 0 ? r == -1 - q : r == -1;
+			return (q == 1 || r == 1) && q >= 1 && r >= 1;
+		return (q == -1 || r == -1) && q <= -1 && r <= -1;
 	}
 	private void addPawnMoves(AxialCoordinate pos, Piece p, List<Move> moves) {
 		int direction = p.isWhite ? -1 : 1;
-		AxialCoordinate fwd = pos.add(0, direction);
+		AxialCoordinate fwd = pos.add(direction, direction);
 		if (fwd.isValid() && pieces.get(fwd) == null) {
 			moves.add(new Move(pos, fwd));
 			if (isPawnStartCell(pos, p.isWhite)) {
-				AxialCoordinate fwd2 = fwd.add(0, direction);
+				AxialCoordinate fwd2 = fwd.add(direction, direction);
 				if (fwd2.isValid() && pieces.get(fwd2) == null)
 					moves.add(new Move(pos, fwd2));
 			}

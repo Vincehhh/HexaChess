@@ -19,7 +19,7 @@ class HexRenderer {
 	private static final Color GREEN = new Color(46, 218, 119, 160);
 	private static final Color[] HEX_COLORS = {SANDYBROWN, NAVAJOWHITE, PERU};
 	private static final int[][] HEX_NEIGHBOR_OFFSETS = {
-		{1, 0}, {1, -1}, {0, -1}, {-1, 0}, {-1, 1}, {0, 1}};
+		{-1, -1}, {0, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 0}};
 	private HexGeometry geometry;
 	private Board board;
 	HexRenderer(HexGeometry geometry, Board board) {
@@ -67,7 +67,7 @@ class HexRenderer {
 		List<AxialCoordinate> highlighted) {
 		Point center = geometry.hexToPixel(coord.q, coord.r, cx, cy);
 		Path2D hex = geometry.createHexPath(center);
-		g2d.setColor(HEX_COLORS[Math.floorMod(coord.q - coord.r, 3)]);
+		g2d.setColor(HEX_COLORS[Math.floorMod(coord.q + coord.r, 3)]);
 		g2d.fill(hex);
 		g2d.draw(hex);
 		if (coord.equals(selected)) {
@@ -93,8 +93,8 @@ class HexRenderer {
 				new AxialCoordinate(q + HEX_NEIGHBOR_OFFSETS[i][0], r + HEX_NEIGHBOR_OFFSETS[i][1]);
 			if (neighbor.isValid())
 				continue;
-			int v1 = (6 - i) % 6;
-			int v2 = (v1 + 1) % 6;
+			int v1 = (i + 4) % 6;
+			int v2 = (i + 5) % 6;
 			int x1 = (int) (center.x + radius * HexGeometry.HEX_COS[v1]);
 			int y1 = (int) (center.y + radius * HexGeometry.HEX_SIN[v1]);
 			int x2 = (int) (center.x + radius * HexGeometry.HEX_COS[v2]);

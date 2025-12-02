@@ -13,8 +13,7 @@ public class AxialCoordinate {
 		return new AxialCoordinate(q + dq, r + dr);
 	}
 	public boolean isValid() {
-		int s = -q - r;
-		return Math.abs(q) <= 5 && Math.abs(r) <= 5 && Math.abs(s) <= 5;
+		return Math.abs(q) <= 5 && Math.abs(r) <= 5 && Math.abs(q - r) <= 5;
 	}
 	@Override
 	public boolean equals(Object obj) {
