@@ -28,6 +28,8 @@ public class HexPanel extends Pane {
 		PieceImageLoader.loadImages();
 		canvas.setOnMouseClicked(event -> handleMouseClick(event.getX(), event.getY()));
 		repaint();
+		// accumulate opacity to remove hex gaps
+		repaint();
 	}
 	private void drawBoard(GraphicsContext gc, double cx, double cy) {
 		for (int q = -5; q <= 5; q++)
