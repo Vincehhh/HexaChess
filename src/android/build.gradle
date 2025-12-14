@@ -1,0 +1,12 @@
+apply plugin: 'com.android.application'
+android {
+	namespace 'im.bpu.hexachess'
+	compileSdkVersion 34
+	defaultConfig {
+		minSdkVersion 21
+		targetSdkVersion 34
+	}
+}
+dependencies {
+	api fileTree(dir: '../libs', include: ['*.aar', '*.jar'])
+}
