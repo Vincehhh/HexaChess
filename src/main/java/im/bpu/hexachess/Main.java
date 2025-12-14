@@ -1,7 +1,7 @@
-package src;
+package im.bpu.hexachess;
 
-import src.model.Board;
-import src.ui.HexPanel;
+import im.bpu.hexachess.model.Board;
+import im.bpu.hexachess.ui.HexPanel;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;

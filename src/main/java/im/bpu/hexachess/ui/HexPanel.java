@@ -1,10 +1,10 @@
-package src.ui;
+package im.bpu.hexachess.ui;
 
-import src.model.AI;
-import src.model.AxialCoordinate;
-import src.model.Board;
-import src.model.Move;
-import src.model.Piece;
+import im.bpu.hexachess.model.AI;
+import im.bpu.hexachess.model.AxialCoordinate;
+import im.bpu.hexachess.model.Board;
+import im.bpu.hexachess.model.Move;
+import im.bpu.hexachess.model.Piece;
 
 import java.util.ArrayList;
 import java.util.List;

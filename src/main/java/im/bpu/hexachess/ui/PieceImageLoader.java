@@ -1,4 +1,4 @@
-package src.ui;
+package im.bpu.hexachess.ui;
 
 import java.util.HashMap;
 import java.util.Map;

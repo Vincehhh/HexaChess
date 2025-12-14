@@ -1,4 +1,4 @@
-package src.model;
+package im.bpu.hexachess.model;
 
 import java.util.Objects;
 

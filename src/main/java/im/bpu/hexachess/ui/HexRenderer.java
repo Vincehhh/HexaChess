@@ -1,8 +1,8 @@
-package src.ui;
+package im.bpu.hexachess.ui;
 
-import src.model.AxialCoordinate;
-import src.model.Board;
-import src.model.Piece;
+import im.bpu.hexachess.model.AxialCoordinate;
+import im.bpu.hexachess.model.Board;
+import im.bpu.hexachess.model.Piece;
 
 import java.util.List;
 import javafx.geometry.Point2D;

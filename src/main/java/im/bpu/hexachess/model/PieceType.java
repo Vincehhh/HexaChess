@@ -1,4 +1,4 @@
-package src.model;
+package im.bpu.hexachess.model;
 
 public enum PieceType {
 	KING(200, 'k'),

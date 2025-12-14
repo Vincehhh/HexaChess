@@ -1,6 +1,6 @@
-package src.ui;
+package im.bpu.hexachess.ui;
 
-import src.model.AxialCoordinate;
+import im.bpu.hexachess.model.AxialCoordinate;
 
 import javafx.geometry.Point2D;
 import javafx.scene.shape.ClosePath;
