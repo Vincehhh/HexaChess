@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>im.bpu</groupId>
 	<artifactId>hexachess</artifactId>
-	<version>2025.12.15</version>
+	<version>2025.12.16</version>
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -11,7 +11,7 @@
 		<maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 		<gluonfx.maven.plugin.version>1.0.25</gluonfx.maven.plugin.version>
-		<gluonfx.target>desktop</gluonfx.target>
+		<gluonfx.target>host</gluonfx.target>
 		<main.class>im.bpu.hexachess.Main</main.class>
 	</properties>
 	<dependencies>
@@ -53,6 +53,17 @@
 		</plugins>
 	</build>
 	<profiles>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<gluonfx.maven.plugin.version>1.0.28</gluonfx.maven.plugin.version>
+			</properties>
+		</profile>
 		<profile>
 			<id>android</id>
 			<properties>

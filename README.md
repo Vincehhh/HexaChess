@@ -53,7 +53,8 @@ Ensure these binaries are in your system's PATH:
 
 - Apache Maven - Version 3.9.11 tested
 - GraalVM CE Gluon - Version 23-dev+25.1 tested
-- JDK 21 - Version 21.0.9 tested
+- JDK 21 - Version 21.0.9 tested (for Linux)
+- Visual Studio Community 2022 - Version 17.14.22 tested (for Windows) (optional, to build)
 
 On Arch Linux:
 
@@ -69,22 +70,57 @@ java --version
 $GRAALVM_HOME/bin/native-image --version
 ```
 
+On Windows:
+
+- Download binary archive and extract from [Apache Maven](https://maven.apache.org/download.cgi)
+- Download binary archive and extract from [GraalVM CE Gluon](https://github.com/gluonhq/graal/releases)
+- Download and install from [Visual Studio Community 2022](https://visualstudio.microsoft.com/vs/community) (optional, to build)
+- Download and install from [WiX Toolset](https://github.com/wixtoolset/wix3/releases) (optional, to produce .msi installer)
+
+##### Visual Studio Installer
+
+Language packs
+
+- English
+
+Individual components
+
+- C++/CLI support for v143 build tools (Latest)
+- MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
+- Windows Universal CRT SDK
+- Windows 11 SDK (10.0.26100.7175)
+
+```cmd
+setx /M PATH "%PATH%;path\to\apache-maven\bin"
+setx /M GRAALVM_HOME "path\to\graalvm-java23-gluon"
+```
+
+```cmd
+mvn -v
+"%GRAALVM_HOME%"\bin\native-image --version
+```
+
 ```bash
 cd HexaChess
 mvn clean gluonfx:run
 ```
 
-On Windows:
-
-...
-
 ## 🛠️ Build from Source
 
-### Desktop
+### Linux
 
 ```bash
 mvn clean gluonfx:build
 mvn gluonfx:package
+```
+
+### Windows
+
+Open `x64 Native Tools Command Prompt for VS 2022` instead of regular `cmd`
+
+```cmd
+mvn clean gluonfx:build
+mvn gluonfx:package & :: (optional, to produce .msi installer)
 ```
 
 ### Android
@@ -118,6 +154,8 @@ mvn gluonfx:package -Pandroid
 Creators of:
 
 - [Apache Maven](https://maven.apache.org)
+- [Gluon Documentation](https://docs.gluonhq.com)
+- [Gluon Samples](https://github.com/gluonhq/gluon-samples)
 - [GluonFX plugin for Maven](https://github.com/gluonhq/gluonfx-maven-plugin)
 - [GraalVM CE Gluon](https://github.com/gluonhq/graal)
 - [JavaFX](https://openjfx.io)
