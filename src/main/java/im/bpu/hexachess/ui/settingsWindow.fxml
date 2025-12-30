@@ -3,7 +3,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="32">
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="32" fx:controller="im.bpu.hexachess.SettingsWindow">
 	<Label text="Settings" styleClass="h2" />
 	<VBox alignment="CENTER" spacing="16">
 		<Label text="AI Difficulty" />

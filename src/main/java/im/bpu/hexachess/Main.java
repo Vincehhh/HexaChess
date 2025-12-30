@@ -10,7 +10,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("ui/mainWindow.fxml"));
-		mainWindowLoader.setController(new MainWindow());
 		Parent root = mainWindowLoader.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("ui/style.css").toExternalForm());

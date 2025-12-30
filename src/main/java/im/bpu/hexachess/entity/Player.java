@@ -4,13 +4,19 @@ public class Player {
 	private String playerId;
 	private String handle;
 	private String email;
+	private String passwordHash;
 	private int rating;
+	private boolean isVerified;
+	private java.time.LocalDateTime joinedAt; 
 
-	public Player(String playerId, String handle, String email, int rating) {
+	public Player(String playerId, String handle, String email, String passwordHash, int rating, boolean isVerified, java.time.LocalDateTime joinedAt) {
 		this.playerId = playerId;
-		this.handle = handle;
-		this.email = email;
-		this.rating = rating;
+        this.handle = handle;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.rating = rating;
+		this.isVerified = isVerified;
+		this.joinedAt = joinedAt;
 	}
 
 	public String getPlayerId() {
@@ -43,5 +49,29 @@ public class Player {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+
+	public boolean isVerified() {
+		return isVerified;
+	}
+
+	public void setVerified(boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public java.time.LocalDateTime getJoinedAt() {
+		return joinedAt;
+	}
+
+	public void setJoinedAt(java.time.LocalDateTime joinedAt) {
+		this.joinedAt = joinedAt;
 	}
 }

@@ -111,4 +111,55 @@ public class PlayerDAO extends DAO<Player> {
         }
         return list;
     }
+
+    public Player login(String handle, String password) {
+        Player p = null;
+        String requete = "SELECT * FROM players WHERE handle = ? AND password_hash = ?";
+        try {
+            PreparedStatement pstmt = connect.prepareStatement(requete);
+            pstmt.setString(1, handle);
+            pstmt.setString(2, password); 
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                p = new Player(
+                    rs.getString("player_id"),
+                    rs.getString("handle"),
+                    rs.getString("email"),
+                    rs.getString("password_hash"), 
+                    rs.getInt("rating"),
+                    rs.getBoolean("is_verified"),
+                    rs.getTimestamp("joined_at") != null ? rs.getTimestamp("joined_at").toLocalDateTime() : null
+                );
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    public Player getPlayerByHandle(String handle) {
+        Player p = null;
+        String requete = "SELECT * FROM players WHERE handle = ?";
+        try {
+            PreparedStatement pstmt = connect.prepareStatement(requete);
+            pstmt.setString(1, handle);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                p = new Player(
+                    rs.getString("player_id"),
+                    rs.getString("handle"),
+                    rs.getString("email"),
+                    rs.getString("password_hash"),
+                    rs.getInt("rating"),
+                    rs.getBoolean("is_verified"),
+                    rs.getTimestamp("joined_at") != null ? rs.getTimestamp("joined_at").toLocalDateTime() : null
+                );
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
 }
