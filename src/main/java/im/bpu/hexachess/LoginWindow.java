@@ -1,7 +1,7 @@
 package im.bpu.hexachess;
 
-import im.bpu.hexachess.dao.PlayerDAO;
 import im.bpu.hexachess.entity.Player;
+import im.bpu.hexachess.network.API;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginWindow {
 	@FXML private TextField handleField;
@@ -29,23 +28,16 @@ public class LoginWindow {
 		String handle = handleField.getText();
 		String pass = passwordField.getText();
 
-		boolean loginSuccess = false;
+		Player p = null;
 
 		if ("root".equals(handle) && "password123".equals(pass)) {
-			loginSuccess = true;
+			p = new Player("00000000000", "root", "root@localhost", "", 1200, true, null);
 		} else {
-			PlayerDAO dao = new PlayerDAO();
-			Player p = dao.getPlayerByHandle(handle);
-			if (p != null) {
-				if (BCrypt.checkpw(pass, p.getPasswordHash())) {
-					loginSuccess = true;
-				}
-			}
+			p = API.login(handle, pass);
 			System.out.println("Connected as: " + (p != null ? p.getHandle() : "null"));
-			dao.close();
 		}
 
-		if (loginSuccess) {
+		if (p != null) {
 			Settings.userHandle = handle;
 			Settings.save();
 			try {

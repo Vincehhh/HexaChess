@@ -1,7 +1,7 @@
 package im.bpu.hexachess;
 
-import im.bpu.hexachess.dao.PlayerDAO;
 import im.bpu.hexachess.entity.Player;
+import im.bpu.hexachess.network.API;
 
 import java.util.UUID;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class RegisterWindow {
 	@FXML private TextField handleField;
@@ -32,28 +31,28 @@ public class RegisterWindow {
 			passwordField.requestFocus();
 			return;
 		}
-		PlayerDAO dao = new PlayerDAO();
 		String id = UUID.randomUUID().toString().substring(0, 11);
 		String handle = handleField.getText();
-		Player newPlayer = new Player(id, handle, emailField.getText(),
-			BCrypt.hashpw(passwordField.getText(), BCrypt.gensalt()), 1200, false,
-			java.time.LocalDateTime.now());
+		Player newPlayer = new Player(
+			id, handle, emailField.getText(), passwordField.getText(), 1200, false, null);
 
-		try {
-			dao.create(newPlayer);
+		boolean registerSuccess = API.register(newPlayer);
+		if (registerSuccess) {
 			Settings.userHandle = handle;
 			Settings.save();
-			FXMLLoader mainWindowLoader =
-				new FXMLLoader(getClass().getResource("ui/mainWindow.fxml"));
-			mainWindowLoader.setController(new MainWindow());
-			Parent root = mainWindowLoader.load();
-			handleField.getScene().setRoot(root);
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			statusLabel.setText("Error (Username taken?)");
+			try {
+				FXMLLoader mainWindowLoader =
+					new FXMLLoader(getClass().getResource("ui/mainWindow.fxml"));
+				mainWindowLoader.setController(new MainWindow());
+				Parent root = mainWindowLoader.load();
+				handleField.getScene().setRoot(root);
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		} else {
+			statusLabel.setText("Error (Username taken or server error)");
 			statusLabel.setVisible(true);
 		}
-		dao.close();
 	}
 
 	@FXML

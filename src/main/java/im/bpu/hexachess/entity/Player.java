@@ -9,6 +9,8 @@ public class Player {
 	private boolean isVerified;
 	private java.time.LocalDateTime joinedAt;
 
+	public Player() {}
+
 	public Player(String playerId, String handle, String email, String passwordHash, int rating,
 		boolean isVerified, java.time.LocalDateTime joinedAt) {
 		this.playerId = playerId;
