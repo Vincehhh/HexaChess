@@ -30,10 +30,10 @@ public class RegisterWindow {
 			passwordField.requestFocus();
 			return;
 		}
-		String id = UUID.randomUUID().toString().substring(0, 11);
+		String playerId = UUID.randomUUID().toString().substring(0, 11);
 		String handle = handleField.getText();
 		Player player = new Player(
-			id, handle, emailField.getText(), passwordField.getText(), 1200, false, null);
+			playerId, handle, emailField.getText(), passwordField.getText(), 1200, false, null);
 		boolean registerSuccess = API.register(player);
 		if (registerSuccess) {
 			Settings.userHandle = handle;

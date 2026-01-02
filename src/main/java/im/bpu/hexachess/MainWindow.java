@@ -35,7 +35,7 @@ public class MainWindow {
 			sidebar.setVisible(true);
 		} else {
 			transition.setToX(-160);
-			transition.setOnFinished(ev -> sidebar.setVisible(false));
+			transition.setOnFinished(event -> sidebar.setVisible(false));
 		}
 		transition.play();
 	}
@@ -70,8 +70,8 @@ public class MainWindow {
 		ContextMenu menu = new ContextMenu();
 		MenuItem settingsItem = new MenuItem("Settings");
 		MenuItem helpItem = new MenuItem("Help");
-		settingsItem.setOnAction(ev -> openSettings());
-		helpItem.setOnAction(ev -> openSettings());
+		settingsItem.setOnAction(event -> openSettings());
+		helpItem.setOnAction(event -> openSettings());
 		menu.getItems().addAll(settingsItem, helpItem);
 		menu.show(settingsHelpButton, Side.BOTTOM, 0, 0);
 	}

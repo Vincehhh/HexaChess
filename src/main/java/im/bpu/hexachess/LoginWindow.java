@@ -25,12 +25,12 @@ public class LoginWindow {
 			return;
 		}
 		String handle = handleField.getText();
-		String pass = passwordField.getText();
+		String password = passwordField.getText();
 		Player player = null;
-		if ("root".equals(handle) && "password123".equals(pass)) {
+		if ("root".equals(handle) && "password123".equals(password)) {
 			player = new Player("00000000000", "root", "root@localhost", "", 1200, true, null);
 		} else {
-			player = API.login(handle, pass);
+			player = API.login(handle, password);
 			System.out.println("Connected as: " + (player != null ? player.getHandle() : "null"));
 		}
 		if (player != null) {

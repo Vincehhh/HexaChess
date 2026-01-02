@@ -33,10 +33,10 @@ class HexRenderer {
 		this.geometry = geometry;
 		this.board = board;
 	}
-	private void drawPieceImage(GraphicsContext gc, double x, double y, Image img) {
+	private void drawPieceImage(GraphicsContext gc, double x, double y, Image image) {
 		double size = geometry.getHexSize() * 1.5;
 		double offset = size / 2;
-		gc.drawImage(img, x - offset, y - offset, size, size);
+		gc.drawImage(image, x - offset, y - offset, size, size);
 	}
 	private void drawPieceFallback(GraphicsContext gc, double x, double y, Piece piece) {
 		double size = geometry.getHexSize();
@@ -54,9 +54,9 @@ class HexRenderer {
 		gc.fillText(label, x, y - 1);
 	}
 	private void drawPiece(GraphicsContext gc, double x, double y, Piece piece) {
-		Image img = PieceImageLoader.get((piece.isWhite ? "w" : "b") + piece.type.code);
+		Image image = PieceImageLoader.get((piece.isWhite ? "w" : "b") + piece.type.code);
 		if (PieceImageLoader.isLoaded())
-			drawPieceImage(gc, x, y, img);
+			drawPieceImage(gc, x, y, image);
 		else
 			drawPieceFallback(gc, x, y, piece);
 	}
@@ -85,9 +85,9 @@ class HexRenderer {
 	void drawHex(GraphicsContext gc, double cx, double cy, AxialCoordinate coord,
 		AxialCoordinate selected, List<AxialCoordinate> highlighted) {
 		Point2D center = geometry.hexToPixel(coord.q, coord.r, cx, cy);
-		Path hex = geometry.createHexPath(center);
+		Path hexPath = geometry.createHexPath(center);
 		gc.setFill(HEX_COLORS[Math.floorMod(coord.q + coord.r, 3)]);
-		drawPath(gc, hex);
+		drawPath(gc, hexPath);
 		gc.fill();
 		if (coord.equals(selected)) {
 			gc.setFill(LEGOYELLOW);

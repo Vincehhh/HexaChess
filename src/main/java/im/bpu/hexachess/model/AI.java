@@ -7,7 +7,8 @@ public class AI {
 	// https://youtu.be/l-hh51ncgDI
 	private int evaluate(Board board) {
 		int eval = 0;
-		for (Piece p : board.pieces.values()) eval += p.isWhite ? p.type.value : -p.type.value;
+		for (Piece piece : board.pieces.values())
+			eval += piece.isWhite ? piece.type.value : -piece.type.value;
 		return eval;
 	}
 	private int minimax(Board board, int depth, int alpha, int beta, boolean maximizingPlayer) {

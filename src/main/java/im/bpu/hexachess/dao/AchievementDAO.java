@@ -9,41 +9,41 @@ import java.util.ArrayList;
 
 public class AchievementDAO extends DAO<Achievement> {
 	@Override
-	public Achievement create(Achievement obj) {
+	public Achievement create(Achievement achievement) {
 		String request =
 			"INSERT INTO achievements (achievement_id, name, description) VALUES(?, ?, ?)";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getAchievementId());
-			pstmt.setString(2, obj.getName());
-			pstmt.setString(3, obj.getDescription());
+			pstmt.setString(1, achievement.getAchievementId());
+			pstmt.setString(2, achievement.getName());
+			pstmt.setString(3, achievement.getDescription());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return achievement;
 	}
 	@Override
-	public Achievement update(Achievement obj) {
+	public Achievement update(Achievement achievement) {
 		String request =
 			"UPDATE achievements SET name = ?, description = ? WHERE achievement_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getName());
-			pstmt.setString(2, obj.getDescription());
-			pstmt.setString(3, obj.getAchievementId());
+			pstmt.setString(1, achievement.getName());
+			pstmt.setString(2, achievement.getDescription());
+			pstmt.setString(3, achievement.getAchievementId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return achievement;
 	}
 	@Override
-	public void delete(Achievement obj) {
+	public void delete(Achievement achievement) {
 		String request = "DELETE FROM achievements WHERE achievement_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getAchievementId());
+			pstmt.setString(1, achievement.getAchievementId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();

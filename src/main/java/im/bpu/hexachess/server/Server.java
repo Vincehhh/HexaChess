@@ -81,8 +81,8 @@ public class Server {
 			}
 			try {
 				Player player = mapper.readValue(exchange.getRequestBody(), Player.class);
-				String pass = player.getPasswordHash();
-				String passwordHash = BCrypt.hashpw(pass, BCrypt.gensalt());
+				String password = player.getPasswordHash();
+				String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
 				player.setPasswordHash(passwordHash);
 				player.setRating(1200);
 				player.setVerified(false);

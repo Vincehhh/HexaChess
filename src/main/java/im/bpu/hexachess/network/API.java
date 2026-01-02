@@ -68,12 +68,12 @@ public class API {
 			return false;
 		}
 	}
-	public static List<Player> search(String query) {
+	public static List<Player> search(String handle) {
 		try {
 			HttpRequest.Builder requestBuilder =
 				HttpRequest.newBuilder().GET().timeout(Duration.ofSeconds(6));
 			HttpResponse<String> response =
-				sendWithFallback(requestBuilder, "/search?handle=" + query);
+				sendWithFallback(requestBuilder, "/search?handle=" + handle);
 			if (response.statusCode() == 200)
 				return List.of(mapper.readValue(response.body(), Player[].class));
 		} catch (Exception exception) {

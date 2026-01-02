@@ -26,7 +26,7 @@ public class HexPanel {
 	private boolean isLockedIn = false;
 	public HexPanel(Canvas canvas, State state) {
 		this.state = state;
-		ai.setMaxDepth(Settings.maxDepth);
+		this.ai.setMaxDepth(Settings.maxDepth);
 		double width = Screen.getPrimary().getBounds().getWidth();
 		double height = Screen.getPrimary().getBounds().getHeight();
 		double aspectRatio = width / height;
@@ -113,12 +113,10 @@ public class HexPanel {
 		deselect();
 	}
 	public void rewind() {
-		if (isLockedIn)
+		if (isLockedIn || state.history.isEmpty())
 			return;
-		if (!state.history.isEmpty()) {
-			state.board = state.history.pop();
-			renderer.setBoard(state.board);
-			deselect();
-		}
+		state.board = state.history.pop();
+		renderer.setBoard(state.board);
+		deselect();
 	}
 }

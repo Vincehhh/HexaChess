@@ -1,4 +1,3 @@
-
 package im.bpu.hexachess;
 
 import im.bpu.hexachess.entity.Player;
@@ -26,15 +25,15 @@ public class SearchWindow {
 			return;
 		List<Player> players = API.search(query);
 		for (Player player : players) {
-			String username = player.getHandle();
+			String handle = player.getHandle();
 			int rating = player.getRating();
-			Label handleLabel = new Label(username);
+			Label handleLabel = new Label(handle);
 			Label ratingLabel = new Label("Rating: " + rating);
 			HBox playerItem = new HBox();
 			playerItem.getStyleClass().add("player-item");
 			VBox playerInfo = new VBox(handleLabel, ratingLabel);
 			playerItem.getChildren().add(playerInfo);
-			playerItem.setOnMouseClicked(ev -> openProfile(username));
+			playerItem.setOnMouseClicked(event -> openProfile(handle));
 			playerContainer.getChildren().add(playerItem);
 		}
 	}

@@ -11,9 +11,9 @@ class PieceImageLoader {
 	private static final Map<String, Image> images = new HashMap<>();
 	private static boolean loaded = false;
 	private static void loadImage(String key, int[] loadedCount, Runnable onload) {
-		Image img = new Image(BASE_URL + key + ".png", true);
-		img.progressProperty().addListener((observable, oldValue, newValue) -> {
-			if (!img.isError() && newValue.doubleValue() == 1.0) {
+		Image image = new Image(BASE_URL + key + ".png", true);
+		image.progressProperty().addListener((observable, oldValue, newValue) -> {
+			if (!image.isError() && newValue.doubleValue() == 1.0) {
 				loadedCount[0]++;
 				if (loadedCount[0] == TOTAL_IMAGES) {
 					loaded = true;
@@ -22,7 +22,7 @@ class PieceImageLoader {
 				}
 			}
 		});
-		images.put(key, img);
+		images.put(key, image);
 	}
 	static void loadImages(Runnable onload) {
 		if (loaded) {

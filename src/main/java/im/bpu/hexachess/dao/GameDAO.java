@@ -9,59 +9,59 @@ import java.sql.Timestamp;
 
 public class GameDAO extends DAO<Game> {
 	@Override
-	public Game create(Game obj) {
+	public Game create(Game game) {
 		String request = "INSERT INTO games (game_id, white_player_id, black_player_id, winner_id, "
 			+ "tournament_id, moves, start_time, end_time, victory_type) VALUES(?, ?, "
 			+ "?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getGameId());
-			pstmt.setString(2, obj.getWhitePlayerId());
-			pstmt.setString(3, obj.getBlackPlayerId());
-			pstmt.setString(4, obj.getWinnerId());
-			pstmt.setString(5, obj.getTournamentId());
-			pstmt.setString(6, obj.getMoves());
-			if (obj.getStartTime() != null)
-				pstmt.setTimestamp(7, Timestamp.valueOf(obj.getStartTime()));
+			pstmt.setString(1, game.getGameId());
+			pstmt.setString(2, game.getWhitePlayerId());
+			pstmt.setString(3, game.getBlackPlayerId());
+			pstmt.setString(4, game.getWinnerId());
+			pstmt.setString(5, game.getTournamentId());
+			pstmt.setString(6, game.getMoves());
+			if (game.getStartTime() != null)
+				pstmt.setTimestamp(7, Timestamp.valueOf(game.getStartTime()));
 			else
 				pstmt.setTimestamp(7, null);
-			if (obj.getEndTime() != null)
-				pstmt.setTimestamp(8, Timestamp.valueOf(obj.getEndTime()));
+			if (game.getEndTime() != null)
+				pstmt.setTimestamp(8, Timestamp.valueOf(game.getEndTime()));
 			else
 				pstmt.setTimestamp(8, null);
-			pstmt.setString(9, obj.getVictoryType());
+			pstmt.setString(9, game.getVictoryType());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return game;
 	}
 	@Override
-	public Game update(Game obj) {
+	public Game update(Game game) {
 		String request = "UPDATE games SET moves = ?, end_time = ?, winner_id = ?, victory_type = "
 			+ "? WHERE game_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getMoves());
-			if (obj.getEndTime() != null)
-				pstmt.setTimestamp(2, Timestamp.valueOf(obj.getEndTime()));
+			pstmt.setString(1, game.getMoves());
+			if (game.getEndTime() != null)
+				pstmt.setTimestamp(2, Timestamp.valueOf(game.getEndTime()));
 			else
 				pstmt.setTimestamp(2, null);
-			pstmt.setString(3, obj.getWinnerId());
-			pstmt.setString(4, obj.getVictoryType());
-			pstmt.setString(5, obj.getGameId());
+			pstmt.setString(3, game.getWinnerId());
+			pstmt.setString(4, game.getVictoryType());
+			pstmt.setString(5, game.getGameId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return game;
 	}
 	@Override
-	public void delete(Game obj) {
+	public void delete(Game game) {
 		String request = "DELETE FROM games WHERE game_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getGameId());
+			pstmt.setString(1, game.getGameId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();

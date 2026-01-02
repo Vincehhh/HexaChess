@@ -10,56 +10,56 @@ import java.util.ArrayList;
 
 public class PlayerDAO extends DAO<Player> {
 	@Override
-	public Player create(Player obj) {
+	public Player create(Player player) {
 		String request =
 			"INSERT INTO players (player_id, handle, email, password_hash, avatar, rating, "
 			+ "location, is_verified, joined_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getPlayerId());
-			pstmt.setString(2, obj.getHandle());
-			pstmt.setString(3, obj.getEmail());
-			pstmt.setString(4, obj.getPasswordHash());
-			pstmt.setString(5, obj.getAvatar());
-			pstmt.setInt(6, obj.getRating());
-			pstmt.setString(7, obj.getLocation());
-			pstmt.setBoolean(8, obj.isVerified());
-			if (obj.getJoinedAt() != null)
-				pstmt.setTimestamp(9, Timestamp.valueOf(obj.getJoinedAt()));
+			pstmt.setString(1, player.getPlayerId());
+			pstmt.setString(2, player.getHandle());
+			pstmt.setString(3, player.getEmail());
+			pstmt.setString(4, player.getPasswordHash());
+			pstmt.setString(5, player.getAvatar());
+			pstmt.setInt(6, player.getRating());
+			pstmt.setString(7, player.getLocation());
+			pstmt.setBoolean(8, player.isVerified());
+			if (player.getJoinedAt() != null)
+				pstmt.setTimestamp(9, Timestamp.valueOf(player.getJoinedAt()));
 			else
 				pstmt.setTimestamp(9, null);
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return player;
 	}
 	@Override
-	public Player update(Player obj) {
+	public Player update(Player player) {
 		String request = "UPDATE players SET handle = ?, email = ?, password_hash = ?, avatar = ?, "
 			+ "rating = ?, location = ?, is_verified = ? WHERE player_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getHandle());
-			pstmt.setString(2, obj.getEmail());
-			pstmt.setString(3, obj.getPasswordHash());
-			pstmt.setString(4, obj.getAvatar());
-			pstmt.setInt(5, obj.getRating());
-			pstmt.setString(6, obj.getLocation());
-			pstmt.setBoolean(7, obj.isVerified());
-			pstmt.setString(8, obj.getPlayerId());
+			pstmt.setString(1, player.getHandle());
+			pstmt.setString(2, player.getEmail());
+			pstmt.setString(3, player.getPasswordHash());
+			pstmt.setString(4, player.getAvatar());
+			pstmt.setInt(5, player.getRating());
+			pstmt.setString(6, player.getLocation());
+			pstmt.setBoolean(7, player.isVerified());
+			pstmt.setString(8, player.getPlayerId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return player;
 	}
 	@Override
-	public void delete(Player obj) {
+	public void delete(Player player) {
 		String request = "DELETE FROM players WHERE player_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getPlayerId());
+			pstmt.setString(1, player.getPlayerId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
@@ -138,12 +138,12 @@ public class PlayerDAO extends DAO<Player> {
 		}
 		return player;
 	}
-	public ArrayList<Player> searchPlayers(String query) {
+	public ArrayList<Player> searchPlayers(String handle) {
 		ArrayList<Player> players = new ArrayList<>();
 		String request = "SELECT * FROM players WHERE handle LIKE ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, "%" + query + "%");
+			pstmt.setString(1, "%" + handle + "%");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				players.add(resultSetToPlayer(rs));

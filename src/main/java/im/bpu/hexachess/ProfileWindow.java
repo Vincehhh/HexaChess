@@ -35,7 +35,7 @@ public class ProfileWindow {
 		COUNTRIES.put("us", "United States");
 	}
 	@FXML private ImageView avatarIcon;
-	@FXML private Label usernameLabel;
+	@FXML private Label handleLabel;
 	@FXML private Region countryFlagIcon;
 	@FXML private Label ratingLabel;
 	@FXML private Label locationLabel;
@@ -47,14 +47,13 @@ public class ProfileWindow {
 		Player player = API.profile(handle);
 		if (player == null)
 			return;
-		String username = player.getHandle();
 		int rating = player.getRating();
 		String location = player.getLocation();
 		LocalDateTime joinedAt = player.getJoinedAt();
 		String avatarUrl = (player.getAvatar() != null && !player.getAvatar().isEmpty())
 			? player.getAvatar()
 			: BASE_URL;
-		usernameLabel.setText(username);
+		handleLabel.setText(handle);
 		ratingLabel.setText("Rating: " + rating);
 		if (location != null && !location.isEmpty()) {
 			String country = COUNTRIES.getOrDefault(location, location);

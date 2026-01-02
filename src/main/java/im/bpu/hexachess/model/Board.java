@@ -30,8 +30,7 @@ public class Board {
 		placeSymmetricPieces(pawns, PieceType.PAWN, PieceType.PAWN);
 	}
 	public Board(Board other) {
-		for (Map.Entry<AxialCoordinate, Piece> entry : other.pieces.entrySet())
-			pieces.put(entry.getKey(), entry.getValue());
+		pieces.putAll(other.pieces);
 		isWhiteTurn = other.isWhiteTurn;
 		enPassant = other.enPassant;
 	}
@@ -43,96 +42,96 @@ public class Board {
 		return !pos.add(direction, direction).isValid();
 	}
 	public void movePiece(AxialCoordinate from, AxialCoordinate to) {
-		Piece p = pieces.remove(from);
-		if (p.type == PieceType.PAWN) {
+		Piece piece = pieces.remove(from);
+		if (piece.type == PieceType.PAWN) {
 			if (to.equals(enPassant)) {
-				int direction = p.isWhite ? 1 : -1;
+				int direction = piece.isWhite ? 1 : -1;
 				pieces.remove(new AxialCoordinate(to.q + direction, to.r + direction));
 			}
 			int dr = to.r - from.r;
 			enPassant =
 				Math.abs(dr) == 2 ? new AxialCoordinate(from.q + dr / 2, from.r + dr / 2) : null;
-			if (isPromotionCell(to, p.isWhite))
-				p = new Piece(PieceType.QUEEN, p.isWhite);
+			if (isPromotionCell(to, piece.isWhite))
+				piece = new Piece(PieceType.QUEEN, piece.isWhite);
 		} else {
 			enPassant = null;
 		}
-		pieces.put(to, p);
+		pieces.put(to, piece);
 		isWhiteTurn = !isWhiteTurn;
 	}
-	private void addStepMoves(AxialCoordinate pos, Piece p, int[][] offsets, List<Move> moves) {
-		for (int[] o : offsets) {
-			AxialCoordinate target = pos.add(o[0], o[1]);
+	private void addStepMoves(AxialCoordinate pos, Piece piece, int[][] offsets, List<Move> moves) {
+		for (int[] offset : offsets) {
+			AxialCoordinate target = pos.add(offset[0], offset[1]);
 			if (!target.isValid())
 				continue;
 			Piece occupant = pieces.get(target);
-			if (occupant == null || occupant.isWhite != p.isWhite)
+			if (occupant == null || occupant.isWhite != piece.isWhite)
 				moves.add(new Move(pos, target));
 		}
 	}
 	private void addSlidingMoves(
-		AxialCoordinate pos, Piece p, int[][] directions, List<Move> moves) {
-		for (int[] d : directions) {
-			AxialCoordinate target = pos.add(d[0], d[1]);
+		AxialCoordinate pos, Piece piece, int[][] directions, List<Move> moves) {
+		for (int[] direction : directions) {
+			AxialCoordinate target = pos.add(direction[0], direction[1]);
 			while (target.isValid()) {
 				Piece occupant = pieces.get(target);
-				if (occupant == null || occupant.isWhite != p.isWhite)
+				if (occupant == null || occupant.isWhite != piece.isWhite)
 					moves.add(new Move(pos, target));
 				if (occupant != null)
 					break;
-				target = target.add(d[0], d[1]);
+				target = target.add(direction[0], direction[1]);
 			}
 		}
 	}
 	private boolean isPawnStartCell(AxialCoordinate pos, boolean isWhite) {
 		int q = pos.q, r = pos.r;
-		if (isWhite)
-			return (q == 1 || r == 1) && q >= 1 && r >= 1;
-		return (q == -1 || r == -1) && q <= -1 && r <= -1;
+		return isWhite ? ((q == 1 || r == 1) && q >= 1 && r >= 1)
+					   : ((q == -1 || r == -1) && q <= -1 && r <= -1);
 	}
-	private void addPawnMoves(AxialCoordinate pos, Piece p, List<Move> moves) {
-		int direction = p.isWhite ? -1 : 1;
+	private void addPawnMoves(AxialCoordinate pos, Piece piece, List<Move> moves) {
+		int direction = piece.isWhite ? -1 : 1;
 		AxialCoordinate fwd = pos.add(direction, direction);
 		if (fwd.isValid() && pieces.get(fwd) == null) {
 			moves.add(new Move(pos, fwd));
-			if (isPawnStartCell(pos, p.isWhite)) {
+			if (isPawnStartCell(pos, piece.isWhite)) {
 				AxialCoordinate fwd2 = fwd.add(direction, direction);
 				if (fwd2.isValid() && pieces.get(fwd2) == null)
 					moves.add(new Move(pos, fwd2));
 			}
 		}
-		for (int[] o : p.isWhite ? whitePawnCaptures : blackPawnCaptures) {
-			AxialCoordinate cap = pos.add(o[0], o[1]);
+		for (int[] offset : piece.isWhite ? whitePawnCaptures : blackPawnCaptures) {
+			AxialCoordinate cap = pos.add(offset[0], offset[1]);
 			if (!cap.isValid())
 				continue;
 			Piece target = pieces.get(cap);
-			if ((target != null && target.isWhite != p.isWhite) || cap.equals(enPassant))
+			if ((target != null && target.isWhite != piece.isWhite) || cap.equals(enPassant))
 				moves.add(new Move(pos, cap));
 		}
 	}
-	private List<Move> getMoves(AxialCoordinate pos, Piece p) {
+	private List<Move> getMoves(AxialCoordinate pos, Piece piece) {
 		List<Move> moves = new ArrayList<>();
-		switch (p.type) {
+		switch (piece.type) {
 			case KING -> {
-				addStepMoves(pos, p, rookDirections, moves);
-				addStepMoves(pos, p, bishopDirections, moves);
+				addStepMoves(pos, piece, rookDirections, moves);
+				addStepMoves(pos, piece, bishopDirections, moves);
 			}
 			case QUEEN -> {
-				addSlidingMoves(pos, p, rookDirections, moves);
-				addSlidingMoves(pos, p, bishopDirections, moves);
+				addSlidingMoves(pos, piece, rookDirections, moves);
+				addSlidingMoves(pos, piece, bishopDirections, moves);
 			}
-			case ROOK -> addSlidingMoves(pos, p, rookDirections, moves);
-			case BISHOP -> addSlidingMoves(pos, p, bishopDirections, moves);
-			case KNIGHT -> addStepMoves(pos, p, knightOffsets, moves);
-			case PAWN -> addPawnMoves(pos, p, moves);
+			case ROOK -> addSlidingMoves(pos, piece, rookDirections, moves);
+			case BISHOP -> addSlidingMoves(pos, piece, bishopDirections, moves);
+			case KNIGHT -> addStepMoves(pos, piece, knightOffsets, moves);
+			case PAWN -> addPawnMoves(pos, piece, moves);
 		}
 		return moves;
 	}
 	public List<Move> listMoves(boolean forWhite) {
 		List<Move> moves = new ArrayList<>();
-		for (Map.Entry<AxialCoordinate, Piece> entry : pieces.entrySet())
-			if (entry.getValue().isWhite == forWhite)
-				moves.addAll(getMoves(entry.getKey(), entry.getValue()));
+		pieces.forEach((coord, piece) -> {
+			if (piece.isWhite == forWhite)
+				moves.addAll(getMoves(coord, piece));
+		});
 		return moves;
 	}
 	private void placePiece(int q, int r, PieceType type, boolean isWhite) {

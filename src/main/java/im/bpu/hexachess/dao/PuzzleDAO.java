@@ -10,49 +10,50 @@ import java.util.ArrayList;
 
 public class PuzzleDAO extends DAO<Puzzle> {
 	@Override
-	public Puzzle create(Puzzle obj) {
-		String request = "INSERT INTO puzzles (puzzle_id, moves, solutions, rating, theme, "
-			+ "created_at) VALUES(?, ?, ?, ?, ?, ?)";
+	public Puzzle create(Puzzle puzzle) {
+		String request =
+			"INSERT INTO puzzles (puzzle_id, moves, solutions, rating, theme, created_at) "
+			+ "VALUES(?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getPuzzleId());
-			pstmt.setString(2, obj.getMoves());
-			pstmt.setString(3, obj.getSolutions());
-			pstmt.setInt(4, obj.getRating());
-			pstmt.setString(5, obj.getTheme());
-			if (obj.getCreatedAt() != null)
-				pstmt.setTimestamp(6, Timestamp.valueOf(obj.getCreatedAt()));
+			pstmt.setString(1, puzzle.getPuzzleId());
+			pstmt.setString(2, puzzle.getMoves());
+			pstmt.setString(3, puzzle.getSolutions());
+			pstmt.setInt(4, puzzle.getRating());
+			pstmt.setString(5, puzzle.getTheme());
+			if (puzzle.getCreatedAt() != null)
+				pstmt.setTimestamp(6, Timestamp.valueOf(puzzle.getCreatedAt()));
 			else
 				pstmt.setTimestamp(6, null);
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return puzzle;
 	}
 	@Override
-	public Puzzle update(Puzzle obj) {
+	public Puzzle update(Puzzle puzzle) {
 		String request = "UPDATE puzzles SET moves = ?, solutions = ?, rating = ?, theme = ? WHERE "
 			+ "puzzle_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getMoves());
-			pstmt.setString(2, obj.getSolutions());
-			pstmt.setInt(3, obj.getRating());
-			pstmt.setString(4, obj.getTheme());
-			pstmt.setString(5, obj.getPuzzleId());
+			pstmt.setString(1, puzzle.getMoves());
+			pstmt.setString(2, puzzle.getSolutions());
+			pstmt.setInt(3, puzzle.getRating());
+			pstmt.setString(4, puzzle.getTheme());
+			pstmt.setString(5, puzzle.getPuzzleId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return obj;
+		return puzzle;
 	}
 	@Override
-	public void delete(Puzzle obj) {
+	public void delete(Puzzle puzzle) {
 		String request = "DELETE FROM puzzles WHERE puzzle_id = ?";
 		try {
 			PreparedStatement pstmt = connect.prepareStatement(request);
-			pstmt.setString(1, obj.getPuzzleId());
+			pstmt.setString(1, puzzle.getPuzzleId());
 			pstmt.executeUpdate();
 		} catch (SQLException exception) {
 			exception.printStackTrace();
