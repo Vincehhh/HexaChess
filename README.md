@@ -240,6 +240,78 @@ mvn clean gluonfx:build -Pandroid
 mvn gluonfx:package -Pandroid
 ```
 
+## 🧾 Configuration
+
+Set environment variable:
+
+```powershell
+setx /M DB_URL your_database_url
+setx /M DB_USER your_database_user
+setx /M DB_PASS your_database_password
+setx /M DEV_URL your_dev_api_url
+setx /M PROD_URL your_prod_api_url
+setx /M PORT your_server_port
+setx /M KEY your_server_jwt_key
+```
+
+For Linux/macOS:
+
+```bash
+echo 'export DB_URL="your_database_url"' >> ~/.bashrc # or ~/.zshrc
+echo 'export DB_USER="your_database_user"' >> ~/.bashrc # or ~/.zshrc
+echo 'export DB_PASS="your_database_password"' >> ~/.bashrc # or ~/.zsh
+echo 'export DEV_URL="your_dev_api_url"' >> ~/.bashrc # or ~/.zshrc
+echo 'export PROD_URL="your_prod_api_url"' >> ~/.bashrc # or ~/.z
+echo 'export PORT="your_server_port"' >> ~/.bashrc # or ~/.zshrc
+echo 'export KEY="your_server_jwt_key"' >> ~/.bashrc # or ~/.zshrc
+```
+
+Or create a `.env` file or modify /etc/environment:
+
+```
+DB_URL=your_database_url
+DB_USER=your_database_user
+DB_PASS=your_database_password
+DEV_URL=your_dev_api_url
+PROD_URL=your_prod_api_url
+PORT=your_server_port
+KEY=your_server_jwt_key
+```
+
+Check by restarting the terminal and using:
+
+```cmd
+echo %DB_URL%
+echo %DB_USER%
+echo %DB_PASS%
+echo %DEV_URL%
+echo %PROD_URL%
+echo %PORT%
+echo %KEY%
+```
+
+For Linux/macOS:
+
+```bash
+echo $DB_URL
+echo $DB_USER
+echo $DB_PASS
+echo $DEV_URL
+echo $PROD_URL
+echo $PORT
+echo $KEY
+```
+
+## 📖 Usage Examples
+
+### Server
+
+Open `src/main/java/im/bpu/hexachess/server/Server.java` and run.
+
+### Client
+
+Open `src/main/java/im/bpu/hexachess/Main.java` and run.
+
 ## 🐛 Bugs
 
 - The game continues despite checkmate, stalemate, or threefold repetition.

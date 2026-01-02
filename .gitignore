@@ -1,5 +1,6 @@
 *.obj
 *.res
+.env
 bin
 lib
 target
