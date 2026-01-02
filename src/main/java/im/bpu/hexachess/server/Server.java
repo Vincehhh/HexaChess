@@ -1,5 +1,6 @@
 package im.bpu.hexachess.server;
 
+import im.bpu.hexachess.Config;
 import im.bpu.hexachess.dao.PlayerDAO;
 import im.bpu.hexachess.entity.Player;
 
@@ -21,13 +22,13 @@ import io.jsonwebtoken.security.Keys;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Server {
-	private static final int PORT = 8800;
+	private static final int PORT = Integer.parseInt(Config.get("PORT", "8800"));
 	private static final ObjectMapper mapper = new ObjectMapper();
 	static {
 		mapper.registerModule(new JavaTimeModule());
 	}
-	private static final Key KEY =
-		Keys.hmacShaKeyFor("HexaChess Secret Key with a minimum of 32 bytes".getBytes());
+	private static final Key KEY = Keys.hmacShaKeyFor(
+		Config.get("KEY", "hexachess_secret_key_with_a_minimum_of_32_bytes").getBytes());
 	public static void main(String[] args) throws IOException {
 		HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
 		server.createContext("/api/login", new LoginHandler());

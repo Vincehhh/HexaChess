@@ -1,5 +1,7 @@
 package im.bpu.hexachess.dao;
 
+import im.bpu.hexachess.Config;
+
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,9 +10,10 @@ public class SingleConnection {
 	private static Connection connect;
 
 	private SingleConnection() throws ClassNotFoundException, SQLException {
-		String url = "jdbc:mysql://127.0.0.1:3306/hexachess?serverTimezone=UTC";
-		String login = "root";
-		String password = getPassword();
+		String url =
+			Config.get("DB_URL", "jdbc:mysql://localhost:3306/hexachess?serverTimezone=UTC");
+		String login = Config.get("DB_USER", "root");
+		String password = Config.get("DB_PASS", getPassword());
 
 		MysqlDataSource mysqlDS = new MysqlDataSource();
 		mysqlDS.setURL(url);
@@ -22,24 +25,21 @@ public class SingleConnection {
 
 	private String getPassword() {
 		String osName = System.getProperty("os.name").toLowerCase();
-		if (osName.contains("win")) {
+		if (osName.contains("win"))
 			return "";
-		}
 		return "password123";
 	}
 
 	public static Connection getInstance() throws ClassNotFoundException, SQLException {
-		if (connect == null || connect.isClosed()) {
+		if (connect == null || connect.isClosed())
 			new SingleConnection();
-		}
 		return connect;
 	}
 
 	public static void close() {
 		try {
-			if (connect != null && !connect.isClosed()) {
+			if (connect != null && !connect.isClosed())
 				connect.close();
-			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
