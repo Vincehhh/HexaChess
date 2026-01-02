@@ -12,7 +12,7 @@
 		</VBox>
 		<VBox spacing="4" alignment="center_left">
 			<HBox spacing="8" alignment="center_left">
-				<Label fx:id="usernameLabel" styleClass="h2" />
+				<Label fx:id="handleLabel" styleClass="h2" />
 				<Region fx:id="countryFlagIcon" styleClass="country-flags-large" />
 			</HBox>
 			<Label fx:id="ratingLabel" styleClass="profile-stat" />
