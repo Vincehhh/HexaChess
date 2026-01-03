@@ -11,12 +11,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class SearchWindow {
+	private static final String BASE_URL =
+		"https://www.chess.com/bundles/web/images/noavatar_l.gif";
 	@FXML private TextField searchField;
 	@FXML private VBox playerContainer;
 	@FXML private Button backButton;
@@ -30,16 +34,34 @@ public class SearchWindow {
 		for (Player player : players) {
 			String handle = player.getHandle();
 			int rating = player.getRating();
+			String location = player.getLocation();
+			String avatarUrl = (player.getAvatar() != null && !player.getAvatar().isEmpty())
+				? player.getAvatar()
+				: BASE_URL;
+			ImageView avatarIcon = new ImageView(new Image(avatarUrl, true));
+			avatarIcon.setFitHeight(42);
+			avatarIcon.setFitWidth(42);
+			avatarIcon.setPreserveRatio(true);
+			VBox avatarContainer = new VBox(avatarIcon);
+			avatarContainer.getStyleClass().add("avatar-container");
 			Label handleLabel = new Label(handle);
+			HBox handleCountryFlag = new HBox(handleLabel);
+			handleCountryFlag.setSpacing(8);
 			Label ratingLabel = new Label("Rating: " + rating);
-			HBox playerItem = new HBox();
-			VBox playerInfo = new VBox(handleLabel, ratingLabel);
+			if (location != null && !location.isEmpty()) {
+				Region countryFlagIcon = new Region();
+				countryFlagIcon.getStyleClass().addAll(
+					"country-flags-large", "country-" + location);
+				handleCountryFlag.getChildren().add(countryFlagIcon);
+			}
+			VBox playerInfo = new VBox(handleCountryFlag, ratingLabel);
 			Region spacer = new Region();
 			Button challengeButton = new Button("⚔");
 			HBox.setHgrow(spacer, Priority.ALWAYS);
+			HBox playerItem = new HBox(avatarContainer, playerInfo, spacer, challengeButton);
+			playerItem.setSpacing(12);
 			playerItem.getStyleClass().add("player-item");
-			playerItem.getChildren().addAll(playerInfo, spacer, challengeButton);
-			playerInfo.setOnMouseClicked(event -> openProfile(handle));
+			playerItem.setOnMouseClicked(event -> openProfile(handle));
 			challengeButton.setOnAction(event -> startMatchmaking(handle));
 			playerContainer.getChildren().add(playerItem);
 		}
