@@ -41,6 +41,12 @@
 	-fx-pref-width: 108px;
 }
 
+.square-button
+{
+	-fx-pref-width: 42px;
+	-fx-pref-height: 42px;
+}
+
 .button,
 .combo-box-base,
 .combo-box-popup .list-view,

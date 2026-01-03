@@ -62,6 +62,7 @@ public class SearchWindow {
 			playerItem.setSpacing(12);
 			playerItem.getStyleClass().add("player-item");
 			playerItem.setOnMouseClicked(event -> openProfile(handle));
+			challengeButton.getStyleClass().add("square-button");
 			challengeButton.setOnAction(event -> startMatchmaking(handle));
 			playerContainer.getChildren().add(playerItem);
 		}

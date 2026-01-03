@@ -9,7 +9,7 @@
 	<Label text="Search" styleClass="h2" />
 	<HBox alignment="center" spacing="16">
 		<TextField fx:id="searchField" onAction="#handleSearch" />
-		<Button fx:id="searchButton" text="🔍" onAction="#handleSearch" />
+		<Button fx:id="searchButton" text="🔍" onAction="#handleSearch" styleClass="square-button" />
 	</HBox>
 	<ScrollPane>
 		<VBox fx:id="playerContainer" spacing="16" />
