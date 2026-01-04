@@ -74,6 +74,7 @@ public class SearchWindow {
 						state.clear();
 						state.isMultiplayer = true;
 						state.gameId = resp;
+						state.opponentHandle = target;
 						state.isWhitePlayer = handle.compareTo(target) < 0;
 						openMain();
 					});

@@ -11,6 +11,7 @@ public class State {
 	public boolean isWhitePlayer = true;
 	public boolean isMultiplayer = false;
 	public String gameId = null;
+	public String opponentHandle = null;
 	private State() {
 		clear();
 	}
@@ -26,5 +27,6 @@ public class State {
 		isWhitePlayer = true;
 		isMultiplayer = false;
 		gameId = null;
+		opponentHandle = null;
 	}
 }

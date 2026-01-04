@@ -29,6 +29,18 @@
 			<Label fx:id="ratingLabel" />
 		</VBox>
 	</HBox>
+	<HBox fx:id="opponentItem" StackPane.alignment="bottom_right" spacing="12" styleClass="player-info-box">
+		<VBox alignment="center_right" spacing="4">
+			<HBox alignment="center_right" spacing="8">
+				<Region fx:id="opponentCountryFlagIcon" styleClass="country-flags, country-flags-medium" />
+				<Label fx:id="opponentHandleLabel" />
+			</HBox>
+			<Label fx:id="opponentRatingLabel" />
+		</VBox>
+		<VBox styleClass="avatar-container">
+			<ImageView fx:id="opponentAvatarIcon" fitHeight="50" fitWidth="50" preserveRatio="true" />
+		</VBox>
+	</HBox>
 	<VBox fx:id="sidebar" maxWidth="160" styleClass="sidebar">
 		<Button text="Search" onAction="#openSearch" styleClass="sidebar-item" />
 		<Button text="Profile" onAction="#openProfile" styleClass="sidebar-item" />

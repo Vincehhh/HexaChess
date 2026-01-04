@@ -31,12 +31,17 @@ public class MainWindow {
 	@FXML private Label handleLabel;
 	@FXML private Region countryFlagIcon;
 	@FXML private Label ratingLabel;
+	@FXML private ImageView opponentAvatarIcon;
+	@FXML private Label opponentHandleLabel;
+	@FXML private Region opponentCountryFlagIcon;
+	@FXML private Label opponentRatingLabel;
 	@FXML
 	private void initialize() {
 		hexPanel = new HexPanel(canvas, State.getState());
 		sidebar.setTranslateX(-160);
 		sidebar.setVisible(false);
 		loadPlayerItem();
+		loadOpponentItem();
 	}
 	private void loadPlayerItem() {
 		String handle = Settings.userHandle;
@@ -56,6 +61,35 @@ public class MainWindow {
 		} else {
 			countryFlagIcon.setManaged(false);
 			countryFlagIcon.setVisible(false);
+		}
+	}
+	private void loadOpponentItem() {
+		State state = State.getState();
+		String handle = "Computer";
+		int rating = ((Settings.maxDepth - 1) / 2 % 3 + 1) * 1200;
+		String location = null;
+		String avatarUrl = BASE_URL;
+		if (state.isMultiplayer) {
+			if (state.opponentHandle != null) {
+				handle = state.opponentHandle;
+				Player opponent = API.profile(handle);
+				if (opponent != null) {
+					rating = opponent.getRating();
+					location = opponent.getLocation();
+					avatarUrl = (opponent.getAvatar() != null && !opponent.getAvatar().isEmpty())
+						? opponent.getAvatar()
+						: BASE_URL;
+				}
+			}
+		}
+		opponentAvatarIcon.setImage(new Image(avatarUrl, true));
+		opponentHandleLabel.setText(handle);
+		opponentRatingLabel.setText("Rating: " + rating);
+		if (location != null && !location.isEmpty()) {
+			opponentCountryFlagIcon.getStyleClass().add("country-" + location);
+		} else {
+			opponentCountryFlagIcon.setManaged(false);
+			opponentCountryFlagIcon.setVisible(false);
 		}
 	}
 	@FXML
