@@ -66,11 +66,11 @@ public class HexPanel {
 	private void executeMove(AxialCoordinate target) {
 		if (isLockedIn)
 			return;
+		String moveString = selected.q + "," + selected.r + "->" + target.q + "," + target.r;
 		state.history.push(new Board(state.board));
 		state.board.movePiece(selected, target);
 		deselect();
 		isLockedIn = true;
-		String moveString = selected.q + "," + selected.r + "->" + target.q + "," + target.r;
 		if (state.isMultiplayer) {
 			new Thread(() -> {
 				API.sendMove(state.gameId, moveString);
