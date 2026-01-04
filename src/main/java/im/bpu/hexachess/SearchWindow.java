@@ -88,7 +88,7 @@ public class SearchWindow {
 	}
 	private void openProfile(String handle) {
 		try {
-			Settings.userHandle = handle;
+			ProfileWindow.targetHandle = handle;
 			FXMLLoader profileWindowLoader =
 				new FXMLLoader(getClass().getResource("ui/profileWindow.fxml"));
 			profileWindowLoader.setController(new ProfileWindow());

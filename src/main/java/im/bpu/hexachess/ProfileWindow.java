@@ -34,6 +34,7 @@ public class ProfileWindow {
 		COUNTRIES.put("ua", "Ukraine");
 		COUNTRIES.put("us", "United States");
 	}
+	public static String targetHandle;
 	@FXML private ImageView avatarIcon;
 	@FXML private Label handleLabel;
 	@FXML private Region countryFlagIcon;
@@ -43,7 +44,7 @@ public class ProfileWindow {
 	@FXML private Button backButton;
 	@FXML
 	private void initialize() {
-		String handle = Settings.userHandle;
+		String handle = targetHandle != null ? targetHandle : Settings.userHandle;
 		Player player = API.profile(handle);
 		if (player == null)
 			return;

@@ -123,6 +123,7 @@ public class MainWindow {
 	@FXML
 	private void openProfile() {
 		try {
+			ProfileWindow.targetHandle = Settings.userHandle;
 			FXMLLoader profileWindowLoader =
 				new FXMLLoader(getClass().getResource("ui/profileWindow.fxml"));
 			profileWindowLoader.setController(new ProfileWindow());
