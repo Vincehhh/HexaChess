@@ -17,13 +17,6 @@
 	</VBox>
 	<Button fx:id="menuButton" StackPane.alignment="top_left" text="☰" onAction="#toggleSidebar" styleClass="menu-button" />
 	<Button fx:id="settingsHelpButton" StackPane.alignment="top_right" text="⋮" onAction="#openHelpSettings" styleClass="settings-help-button" />
-	<VBox fx:id="sidebar" maxWidth="160" styleClass="sidebar">
-		<Button text="Search" onAction="#openSearch" styleClass="sidebar-item" />
-		<Button text="Profile" onAction="#openProfile" styleClass="sidebar-item" />
-		<Button text="Achievements" onAction="#openSettings" styleClass="sidebar-item" />
-		<Button text="Puzzles" onAction="#openSettings" styleClass="sidebar-item" />
-		<Button text="Tournaments" onAction="#openSettings" styleClass="sidebar-item" />
-	</VBox>
 	<HBox fx:id="playerItem" StackPane.alignment="bottom_left" spacing="12" styleClass="player-info-box">
 		<VBox styleClass="avatar-container">
 			<ImageView fx:id="avatarIcon" fitHeight="50" fitWidth="50" preserveRatio="true" />
@@ -36,4 +29,11 @@
 			<Label fx:id="ratingLabel" />
 		</VBox>
 	</HBox>
+	<VBox fx:id="sidebar" maxWidth="160" styleClass="sidebar">
+		<Button text="Search" onAction="#openSearch" styleClass="sidebar-item" />
+		<Button text="Profile" onAction="#openProfile" styleClass="sidebar-item" />
+		<Button text="Achievements" onAction="#openSettings" styleClass="sidebar-item" />
+		<Button text="Puzzles" onAction="#openSettings" styleClass="sidebar-item" />
+		<Button text="Tournaments" onAction="#openSettings" styleClass="sidebar-item" />
+	</VBox>
 </StackPane>

@@ -381,8 +381,10 @@
 
 .sidebar
 {
+	-fx-background-color: white;
 	-fx-border-color: black;
 	-fx-border-width: 0 3px 0 0;
+	background-color: white;
 	border-color: black;
 	border-width: 0 3px 0 0;
 }
