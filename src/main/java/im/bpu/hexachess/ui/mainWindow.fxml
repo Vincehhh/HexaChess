@@ -8,6 +8,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml" alignment="top_left">
+	<!--
+	<VBox StackPane.alignment="top_right" alignment="top_right">
+		<Label fx:id="fontFamilyLabel" />
+		<Label fx:id="fontNameLabel" />
+	</VBox>
+	-->
 	<VBox StackPane.alignment="center" alignment="center" onMouseClicked="#onBoardClicked">
 		<Canvas fx:id="canvas" width="666" height="666" />
 		<HBox alignment="center" spacing="16">
@@ -15,7 +21,7 @@
 			<Button fx:id="rewindButton" text="Rewind" onAction="#rewind" />
 		</HBox>
 	</VBox>
-	<Button fx:id="menuButton" StackPane.alignment="top_left" text="☰" onAction="#toggleSidebar" styleClass="menu-button" />
+	<Button fx:id="menuButton" StackPane.alignment="top_left" text="≡" onAction="#toggleSidebar" styleClass="menu-button" />
 	<Button fx:id="settingsHelpButton" StackPane.alignment="top_right" text="⋮" onAction="#openHelpSettings" styleClass="settings-help-button" />
 	<HBox fx:id="playerItem" StackPane.alignment="bottom_left" spacing="12" styleClass="player-info-box">
 		<VBox styleClass="avatar-container">

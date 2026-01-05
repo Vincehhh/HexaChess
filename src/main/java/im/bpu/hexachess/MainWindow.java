@@ -5,6 +5,7 @@ import im.bpu.hexachess.network.API;
 import im.bpu.hexachess.ui.HexPanel;
 
 import javafx.animation.TranslateTransition;
+// import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+// import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class MainWindow {
@@ -37,6 +39,10 @@ public class MainWindow {
 	@FXML private Label opponentHandleLabel;
 	@FXML private Region opponentCountryFlagIcon;
 	@FXML private Label opponentRatingLabel;
+	/*
+	@FXML private Label fontFamilyLabel;
+	@FXML private Label fontNameLabel;
+	*/
 	@FXML
 	private void initialize() {
 		State state = State.getState();
@@ -51,6 +57,14 @@ public class MainWindow {
 			rewindButton.setManaged(false);
 			rewindButton.setVisible(false);
 		}
+		/*
+		Platform.runLater(() -> {
+			settingsHelpButton.applyCss();
+			Font font = settingsHelpButton.getFont();
+			fontFamilyLabel.setText("Family: " + font.getFamily());
+			fontNameLabel.setText("Name: " + font.getName());
+		});
+		*/
 	}
 	private void loadPlayerItem() {
 		String handle = Settings.userHandle;
