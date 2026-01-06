@@ -72,6 +72,7 @@ public class TournamentsWindow {
 	}
 	@FXML
 	private void openMain() {
+		SoundManager.playClick();
 		try {
 			FXMLLoader mainWindowLoader =
 				new FXMLLoader(getClass().getResource("ui/mainWindow.fxml"));
