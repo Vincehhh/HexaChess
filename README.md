@@ -331,10 +331,11 @@ Open `src/main/java/im/bpu/hexachess/Main.java` and run.
 
 ## 🚧 TODO
 
-- [ ] **Registration & Login**: User authentication system.
+- [ ] **Android Fonts**: Ensure proper bold font and button icon rendering.
+- [ ] **Android Icon**: Fix smaller icon in launcher.
+- [ ] **Windows Installer**: Fix name, version, and add update functionality.
 - [ ] **Player Profile**: Edit profile, change password, upload avatar.
-- [ ] **Player Information**: Avatar, display name, location, rating.
-- [ ] **PVP Mode**: Offline player vs. player mode.
+- [ ] **PVP Mode**: Offline player vs. player mode. Allow playing against self via /challenge.
 - [ ] **Multiplayer Mode**: Online player vs. player mode.
 - [ ] **Timer/Clock**
 - [ ] **Database Integration**
@@ -345,7 +346,14 @@ Open `src/main/java/im/bpu/hexachess/Main.java` and run.
 - [ ] **Puzzles**
 - [ ] **Tournaments**
 - [ ] **Leaderboards**
+- [ ] **Help**: Add game rules and multiplayer explanation.
 - [ ] **Unit Tests**
+- [ ] **UI Test SQL**: Create SQL to test achievements, puzzles, tournaments, and leaderboards UI.
+- [ ] **Translations**: Add more languages.
+- [ ] **Password Recovery**
+- [ ] **Email Verification**
+- [ ] **Raw Config**: Modify to not use `io.github.cdimascio.dotenv.Dotenv`.
+- [ ] **Raw Server**: Modify to not use `com.sun.net.httpserver`.
 - [ ] **Different Screen Sizes**: Adapt UI for various screen dimensions.
 - [ ] **Enemy Movements**: Highlight enemy possible moves (in red).
 - [ ] **Game Settings**: Implement configurable game options (e.g., white/black, aim assist).
