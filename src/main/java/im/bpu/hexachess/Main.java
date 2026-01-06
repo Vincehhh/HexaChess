@@ -22,10 +22,9 @@ public class Main extends Application {
 			startWindowLoader.setController(new StartWindow());
 			root = startWindowLoader.load();
 		}
-		double width = Screen.getPrimary().getBounds().getWidth();
-		double height = Screen.getPrimary().getBounds().getHeight();
-		double aspectRatio = width / height;
-		if (aspectRatio > 1.5) {
+		double width;
+		double height;
+		if (getAspectRatio() > 1.5) {
 			width = 1200;
 			height = 800;
 		} else {
@@ -37,6 +36,12 @@ public class Main extends Application {
 		stage.setTitle("HexaChess");
 		stage.setScene(scene);
 		stage.show();
+	}
+	public static double getAspectRatio() {
+		double width = Screen.getPrimary().getBounds().getWidth();
+		double height = Screen.getPrimary().getBounds().getHeight();
+		double aspectRatio = width / height;
+		return aspectRatio;
 	}
 	public static void main(String[] args) {
 		launch(args);

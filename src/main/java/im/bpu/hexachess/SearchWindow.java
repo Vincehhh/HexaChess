@@ -19,6 +19,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+import static im.bpu.hexachess.Main.getAspectRatio;
+
 public class SearchWindow {
 	private static final String BASE_URL =
 		"https://www.chess.com/bundles/web/images/noavatar_l.gif";
@@ -28,10 +30,7 @@ public class SearchWindow {
 	@FXML private Button backButton;
 	@FXML
 	private void initialize() {
-		double width = Screen.getPrimary().getBounds().getWidth();
-		double height = Screen.getPrimary().getBounds().getHeight();
-		double aspectRatio = width / height;
-		if (aspectRatio < 1.5) {
+		if (getAspectRatio() < 1.5) {
 			searchPane.setStyle("-fx-pref-width: 400px; -fx-max-width: 400px;");
 		}
 	}

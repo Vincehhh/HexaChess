@@ -16,6 +16,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 
+import static im.bpu.hexachess.Main.getAspectRatio;
+
 public class HexPanel {
 	private State state;
 	private AI ai = new AI();
@@ -29,10 +31,7 @@ public class HexPanel {
 	public HexPanel(Canvas canvas, State state) {
 		this.state = state;
 		this.ai.setMaxDepth(Settings.maxDepth);
-		double width = Screen.getPrimary().getBounds().getWidth();
-		double height = Screen.getPrimary().getBounds().getHeight();
-		double aspectRatio = width / height;
-		this.geometry = new HexGeometry(aspectRatio > 1.5 ? 32 : 24);
+		this.geometry = new HexGeometry(getAspectRatio() > 1.5 ? 32 : 24);
 		this.renderer = new HexRenderer(geometry, state.board);
 		this.canvas = canvas;
 		PieceImageLoader.loadImages(this::repaint);
