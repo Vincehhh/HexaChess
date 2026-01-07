@@ -48,7 +48,7 @@ Apply and Close
 
 ```
 Run Configurations > Java Application > Main > Arguments
-VM arguments: `--module-path "path/to/javafx-sdk-21/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics`
+VM arguments: `--module-path "path/to/javafx-sdk-21/lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media`
 ```
 
 #### Terminal
